@@ -1,57 +1,53 @@
 import axios from "axios";
 import slugify from "slugify";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Home({ data, userData, commentData }) {
-  const deleteUser = (id) => {
-    axios
-      .delete(`https://jsonplaceholder.typicode.com/posts/${id}`)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const [postData, setPostData] = useState(
+    data.filter((elem) => elem.id <= 20)
+  );
+  const deletePost = (id) => {
+    setPostData(postData.filter((elem) => elem.id !== id));
+    console.log(postData);
   };
   return (
     <>
       <h1>Blog</h1>
-      {data
-        .filter((elem) => elem.id <= 20)
-        .map((item) => {
-          return (
-            <div key={item.id}>
-              <div>
-                <span style={{ fontWeight: "700" }}>title:</span>{" "}
-                <Link href={`/posts/${item.id}/${slugify(item.title)}`}>
-                  {item.title}
-                </Link>
-              </div>
-              <div>
-                <span style={{ fontWeight: "700" }}>author:</span>
-                {userData.map((user) => {
-                  if (user.id === item.userId) {
-                    return <p key={user.id}>{user.name}</p>;
-                  }
-                })}
-              </div>
-              <div>
-                <span style={{ fontWeight: "700" }}>comments:</span>
-                {commentData.filter((elem) => elem.postId === item.id).length}
-              </div>
-              <div>
-                <button
-                  style={{ padding: "1rem" }}
-                  onClick={() => {
-                    deleteUser(item.id);
-                  }}
-                >
-                  Delete
-                </button>
-              </div>
+      {postData.map((item) => {
+        return (
+          <div key={item.id}>
+            <div>
+              <span style={{ fontWeight: "700" }}>title:</span>{" "}
+              <Link href={`/posts/${item.id}/${slugify(item.title)}`}>
+                {item.title}
+              </Link>
             </div>
-          );
-        })}
+            <div>
+              <span style={{ fontWeight: "700" }}>author:</span>
+              {userData.map((user) => {
+                if (user.id === item.userId) {
+                  return <p key={user.id}>{user.name}</p>;
+                }
+              })}
+            </div>
+            <div>
+              <span style={{ fontWeight: "700" }}>comments:</span>
+              {commentData.filter((elem) => elem.postId === item.id).length}
+            </div>
+            <div>
+              <button
+                style={{ padding: "1rem" }}
+                onClick={() => {
+                  deletePost(item.id);
+                }}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        );
+      })}
     </>
   );
 }
