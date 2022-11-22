@@ -2,8 +2,12 @@ import axios from "axios";
 import slugify from "slugify";
 import Link from "next/link";
 import { useState } from "react";
+import { Button } from "antd";
+import { DeleteOutlined } from "@ant-design/icons";
+import { Typography } from "antd";
 
 export default function Home({ data, userData, commentData }) {
+  const { Title } = Typography;
   const [postData, setPostData] = useState(
     data.filter((elem) => elem.id <= 20)
   );
@@ -12,7 +16,7 @@ export default function Home({ data, userData, commentData }) {
   };
   return (
     <>
-      <h1>Blog</h1>
+      <Title>Blog</Title>
       {postData.map((item) => {
         return (
           <div key={item.id}>
@@ -35,14 +39,15 @@ export default function Home({ data, userData, commentData }) {
               {commentData.filter((elem) => elem.postId === item.id).length}
             </div>
             <div>
-              <button
-                style={{ padding: "1rem" }}
+              <Button
                 onClick={() => {
                   deletePost(item.id);
                 }}
+                danger
               >
                 Delete
-              </button>
+                <DeleteOutlined />
+              </Button>
             </div>
           </div>
         );
