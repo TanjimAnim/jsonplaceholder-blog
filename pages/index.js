@@ -9,7 +9,6 @@ export default function Home({ data, userData, commentData }) {
   );
   const deletePost = (id) => {
     setPostData(postData.filter((elem) => elem.id !== id));
-    console.log(postData);
   };
   return (
     <>
