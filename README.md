@@ -1,6 +1,6 @@
 ## JSONplaceholderAPI Blog Site
 
-A blog site made with (JSONplaceholderAPI)[https://jsonplaceholder.typicode.com/].
+A blog site made with [JSONplaceholderAPI](https://jsonplaceholder.typicode.com/). <br>
 Live Link - https://jsonplaceholderapi-blog.netlify.app/
 
 ## Technology used
@@ -9,7 +9,7 @@ Live Link - https://jsonplaceholderapi-blog.netlify.app/
 - ReactJS
 - ChakraUI (component library)
 
-## Start Frontend-
+## Start Project Locally-
 
 ```
     # clone the git repo
