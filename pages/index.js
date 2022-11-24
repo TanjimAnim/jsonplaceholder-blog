@@ -11,6 +11,7 @@ import Loader from "../src/components/loader";
 
 export default function Home({ data, userData, commentData }) {
   const toast = useToast();
+  console.log("hi");
   const [postData, setPostData] = useState(data.posts);
   const deletePost = (id) => {
     toast({
