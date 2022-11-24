@@ -25,7 +25,7 @@ export default function Post({ postData, userData, commentData }) {
           marginX="1rem"
           minHeight="80vh"
         >
-          {postData.map((item) => {
+          {postData.posts.map((item) => {
             if (item.id === parseInt(posts[0])) {
               return (
                 <Box key={item.id}>
@@ -71,13 +71,14 @@ export default function Post({ postData, userData, commentData }) {
                         Comments <ChatIcon />
                       </span>{" "}
                       {
-                        commentData.filter((elem) => elem.postId === item.id)
-                          .length
+                        commentData.comments.filter(
+                          (elem) => elem.postId === item.id
+                        ).length
                       }
                     </Text>
                   </Box>
                   <Box>
-                    {commentData.map((comment) => {
+                    {commentData.comments.map((comment) => {
                       if (comment.postId === parseInt(posts[0]))
                         return (
                           <Box
@@ -112,9 +113,9 @@ export default function Post({ postData, userData, commentData }) {
 }
 
 export async function getServerSideProps() {
-  const url1 = "https://jsonplaceholder.typicode.com/posts";
+  const url1 = "http://localhost:3000/api/get-posts";
   const url2 = "https://jsonplaceholder.typicode.com/users";
-  const url3 = "https://jsonplaceholder.typicode.com/comments";
+  const url3 = "http://localhost:3000/api/get-comments";
   const { data: postData } = await axios.get(url1);
   const { data: userData } = await axios.get(url2);
   const { data: commentData } = await axios.get(url3);
