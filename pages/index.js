@@ -11,7 +11,6 @@ import { FaQuoteLeft } from "react-icons/fa";
 
 export default function Home({ data, userData, commentData }) {
   const toast = useToast();
-  console.log("hi");
   const [postData, setPostData] = useState(data.posts);
   const deletePost = (id) => {
     toast({
@@ -131,6 +130,7 @@ export async function getStaticProps() {
   const url1 = "http://localhost:3000/api/get-posts";
   const url2 = "https://jsonplaceholder.typicode.com/users";
   const url3 = "http://localhost:3000/api/get-comments";
+
   const { data } = await axios.get(url1);
   const { data: userData } = await axios.get(url2);
   const { data: commentData } = await axios.get(url3);
