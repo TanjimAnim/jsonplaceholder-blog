@@ -3,7 +3,7 @@ import axios from "axios";
 import { Box, Heading, Text } from "@chakra-ui/react";
 import { ChatIcon } from "@chakra-ui/icons";
 import Link from "next/link";
-import { baseUrl } from "../config";
+import { baseUrl } from "../../config";
 //import { Suspense } from "react";
 //import Loader from "../../src/components/loader";
 export default function Post({ postData, userData, commentData }) {

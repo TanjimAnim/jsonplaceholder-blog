@@ -9,7 +9,7 @@ import { FaQuoteLeft } from "react-icons/fa";
 
 //import Loader from "../src/components/loader";
 
-import { baseUrl } from "./config";
+import { baseUrl } from "../config";
 
 export default function Home({ data, userData, commentData }) {
   const toast = useToast();
