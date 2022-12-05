@@ -3,6 +3,10 @@ import slugify from "slugify";
 import Link from "next/link";
 import { useState } from "react";
 import { Box, Text, Heading, Button, useToast } from "@chakra-ui/react";
+
+//import types
+import { GetStaticProps } from "next";
+
 //import icons
 import { DeleteIcon, ChatIcon } from "@chakra-ui/icons";
 import { FaQuoteLeft } from "react-icons/fa";
@@ -11,10 +15,15 @@ import { FaQuoteLeft } from "react-icons/fa";
 
 import { baseUrl } from "../config";
 
+//import types
+import { PostData, PostResponseData } from "./api/get-posts";
+import { CommentData, CommentResponseData } from "./api/get-comments";
+import { UserData, UserResponseData } from "./api/get-users";
+
 export default function Home({ data, userData, commentData }) {
   const toast = useToast();
   const [postData, setPostData] = useState(data.posts);
-  const deletePost = (id) => {
+  const deletePost = (id: number) => {
     toast({
       title: "Post Deleted",
       status: "error",
@@ -22,7 +31,7 @@ export default function Home({ data, userData, commentData }) {
       isClosable: true,
     });
 
-    setPostData(postData.filter((elem) => elem.id !== id));
+    setPostData(postData.posts.filter((elem: PostData) => elem.id !== id));
   };
 
   return (
@@ -40,7 +49,7 @@ export default function Home({ data, userData, commentData }) {
         justifyContent="center"
         cursor="pointer"
       >
-        {postData.map((item) => {
+        {postData.map((item: PostData) => {
           return (
             <Box
               key={item.id}
@@ -69,7 +78,7 @@ export default function Home({ data, userData, commentData }) {
               </Box>
               <Box marginY="10px">
                 <Box>
-                  {userData.map((user) => {
+                  {userData.users.map((user: UserData) => {
                     if (user.id === item.userId) {
                       return (
                         <Text
@@ -92,7 +101,7 @@ export default function Home({ data, userData, commentData }) {
                     </span>{" "}
                     {
                       commentData.comments.filter(
-                        (elem) => elem.postId === item.id
+                        (elem: CommentData) => elem.postId === item.id
                       ).length
                     }
                   </Text>
@@ -128,16 +137,18 @@ export default function Home({ data, userData, commentData }) {
   );
 }
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
   const url1 = `${baseUrl}/api/get-posts`;
-  const url2 = "https://jsonplaceholder.typicode.com/users";
+  const url2 = `${baseUrl}/api/get-users`;
   const url3 = `${baseUrl}/api/get-comments`;
 
-  const { data } = await axios.get(url1);
-  const { data: userData } = await axios.get(url2);
-  const { data: commentData } = await axios.get(url3);
+  const { data }: { data: PostResponseData } = await axios.get(url1);
+  const { data: userData }: { data: UserResponseData } = await axios.get(url2);
+  const { data: commentData }: { data: CommentResponseData } = await axios.get(
+    url3
+  );
 
   return {
     props: { data, userData, commentData },
   };
-}
+};

@@ -6,6 +6,12 @@ import Link from "next/link";
 import { baseUrl } from "../../config";
 //import { Suspense } from "react";
 //import Loader from "../../src/components/loader";
+
+//import types
+import { GetServerSideProps } from "next";
+import { PostData, PostResponseData } from "../api/get-posts";
+import { CommentData, CommentResponseData } from "../api/get-comments";
+import { UserData, UserResponseData } from "../api/get-users";
 export default function Post({ postData, userData, commentData }) {
   const router = useRouter();
   const { posts } = router.query;
@@ -20,12 +26,12 @@ export default function Post({ postData, userData, commentData }) {
         </Link>
       </Box>
       <Box background="#fefbd8" padding="1rem" marginX="1rem" minHeight="80vh">
-        {postData.posts.map((item) => {
+        {postData.posts.map((item: PostData) => {
           if (item.id === parseInt(posts[0])) {
             return (
               <Box key={item.id}>
                 <Box>
-                  {userData.map((user) => {
+                  {userData.map((user: UserData) => {
                     if (user.id === item.userId) {
                       return (
                         <Text
@@ -67,13 +73,13 @@ export default function Post({ postData, userData, commentData }) {
                     </span>{" "}
                     {
                       commentData.comments.filter(
-                        (elem) => elem.postId === item.id
+                        (elem: CommentData) => elem.postId === item.id
                       ).length
                     }
                   </Text>
                 </Box>
                 <Box>
-                  {commentData.comments.map((comment) => {
+                  {commentData.comments.map((comment: CommentData) => {
                     if (comment.postId === parseInt(posts[0]))
                       return (
                         <Box
@@ -106,14 +112,16 @@ export default function Post({ postData, userData, commentData }) {
   );
 }
 
-export async function getServerSideProps() {
+export const getServerSideProps: GetServerSideProps = async () => {
   const url1 = `${baseUrl}/api/get-posts`;
   const url2 = "https://jsonplaceholder.typicode.com/users";
   const url3 = `${baseUrl}/api/get-comments`;
-  const { data: postData } = await axios.get(url1);
-  const { data: userData } = await axios.get(url2);
-  const { data: commentData } = await axios.get(url3);
+  const { data: postData }: { data: PostResponseData } = await axios.get(url1);
+  const { data: userData }: { data: UserResponseData } = await axios.get(url2);
+  const { data: commentData }: { data: CommentResponseData } = await axios.get(
+    url3
+  );
   return {
     props: { postData, userData, commentData },
   };
-}
+};
