@@ -11,7 +11,7 @@ import { GetStaticProps } from "next";
 import { DeleteIcon, ChatIcon } from "@chakra-ui/icons";
 import { FaQuoteLeft } from "react-icons/fa";
 
-import { baseUrl } from "../config";
+import { baseUrl } from "../config/";
 
 //import types
 import { PostData, PostResponseData } from "./api/get-posts";
