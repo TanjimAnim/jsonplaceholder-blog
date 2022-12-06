@@ -1,4 +1,4 @@
 export const baseUrl =
   process.env.NODE_ENV === "production"
-    ? "https://jsonplaceholderapi-blog.netlify.app/"
+    ? "https://0.0.0.0/"
     : "http://localhost:3000";
