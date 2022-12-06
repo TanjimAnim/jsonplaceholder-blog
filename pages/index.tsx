@@ -11,8 +11,6 @@ import { GetStaticProps } from "next";
 import { DeleteIcon, ChatIcon } from "@chakra-ui/icons";
 import { FaQuoteLeft } from "react-icons/fa";
 
-//import Loader from "../src/components/loader";
-
 import { baseUrl } from "../config";
 
 //import types
@@ -31,7 +29,7 @@ export default function Home({ data, userData, commentData }) {
       isClosable: true,
     });
 
-    setPostData(postData.posts.filter((elem: PostData) => elem.id !== id));
+    setPostData(postData.filter((elem: PostData) => elem.id !== id));
   };
 
   return (

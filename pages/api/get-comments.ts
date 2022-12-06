@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 export type CommentResponseData = {
   success: boolean;
-  comments: [];
+  comments: CommentData[];
   error?: string;
 };
 

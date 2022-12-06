@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 export type PostResponseData = {
   success: boolean;
-  posts: [];
+  posts: PostData[];
   error?: string;
 };
 
