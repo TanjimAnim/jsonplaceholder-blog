@@ -21,6 +21,7 @@ import { UserData, UserResponseData } from "./api/get-users";
 export default function Home({ data, userData, commentData }) {
   const toast = useToast();
   const [postData, setPostData] = useState(data.posts);
+  console.log(data);
   const deletePost = (id: number) => {
     toast({
       title: "Post Deleted",
