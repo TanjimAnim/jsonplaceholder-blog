@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Box, Text, Heading, Button, useToast } from "@chakra-ui/react";
 
 //import types
-import { GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 
 //import icons
 import { DeleteIcon, ChatIcon } from "@chakra-ui/icons";
@@ -21,7 +21,7 @@ import { UserData, UserResponseData } from "./api/get-users";
 export default function Home({ data, userData, commentData }) {
   const toast = useToast();
   const [postData, setPostData] = useState(data.posts);
-  console.log(data);
+
   const deletePost = (id: number) => {
     toast({
       title: "Post Deleted",
@@ -136,7 +136,7 @@ export default function Home({ data, userData, commentData }) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const url1 = `${baseUrl}/api/get-posts`;
   const url2 = `${baseUrl}/api/get-users`;
   const url3 = `${baseUrl}/api/get-comments`;
