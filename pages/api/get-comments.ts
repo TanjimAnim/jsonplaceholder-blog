@@ -25,11 +25,9 @@ export default async function handler(
   try {
     const url = "https://jsonplaceholder.typicode.com/comments";
     const result = await fetch(url);
-    const data = await result.json();
+    const data: CommentData[] = await result.json();
     responseData.success = true;
-    responseData.comments = data.filter(
-      (elem: CommentData) => elem.postId <= 20
-    );
+    responseData.comments = data.filter((elem) => elem.postId <= 20);
     response.status(200).json(responseData);
   } catch (err) {
     responseData.error = err.message;

@@ -41,9 +41,9 @@ export default async function handler(
   try {
     const url: RequestInfo = "https://jsonplaceholder.typicode.com/users";
     const result: Response = await fetch(url);
-    const data = await result.json();
+    const data: UserData[] = await result.json();
     responseData.success = true;
-    responseData.users = data.filter((elem: UserData) => elem.id <= 20);
+    responseData.users = data.filter((elem) => elem.id <= 20);
     response.status(200).json(responseData);
   } catch (error) {
     responseData.error = error.message;
